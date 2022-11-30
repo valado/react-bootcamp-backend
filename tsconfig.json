@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist/",
+      "noImplicitAny": true,
+      "module": "es6",
+      "moduleResolution": "node",
+      "target": "es5",
+      "allowJs": true,
+      "sourceMap": true, // TODO make dependand on env
+      "typeRoots": [
+        "node_modules/@types"
+      ]
+    },
+    "files": [
+      "app/index.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
