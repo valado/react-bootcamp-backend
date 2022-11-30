@@ -15,17 +15,14 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic test@mail.de:password",
+						"value": "Basic vlad@mail.com:react",
 						"type": "default"
 					}
 				],
 				"url": {
-					"raw": "https://react-bootcamp-backend.herokuapp.com/register",
-					"protocol": "https",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/register",
 					"host": [
-						"react-bootcamp-backend",
-						"herokuapp",
-						"com"
+						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
 						"register"
@@ -53,17 +50,14 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic test@mail.de:password",
+						"value": "Basic vlad@mail.com:react",
 						"type": "default"
 					}
 				],
 				"url": {
-					"raw": "https://react-bootcamp-backend.herokuapp.com/login",
-					"protocol": "https",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/login",
 					"host": [
-						"react-bootcamp-backend",
-						"herokuapp",
-						"com"
+						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
 						"login"
@@ -84,12 +78,9 @@
 					}
 				],
 				"url": {
-					"raw": "https://react-bootcamp-backend.herokuapp.com/data",
-					"protocol": "https",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/data",
 					"host": [
-						"react-bootcamp-backend",
-						"herokuapp",
-						"com"
+						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
 						"data"
@@ -119,12 +110,9 @@
 					"raw": "{\n    \"test\": 1\n}"
 				},
 				"url": {
-					"raw": "https://react-bootcamp-backend.herokuapp.com/data",
-					"protocol": "https",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/data",
 					"host": [
-						"react-bootcamp-backend",
-						"herokuapp",
-						"com"
+						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
 						"data"

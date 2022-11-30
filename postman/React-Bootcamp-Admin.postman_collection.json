@@ -11,11 +11,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:9000/db",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/db",
 					"host": [
-						"localhost"
+						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
-					"port": "9000",
 					"path": [
 						"db"
 					]
