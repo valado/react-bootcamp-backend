@@ -26,6 +26,9 @@ router.post("/", (req: Request, res: Response) => {
       .status(200)
       .cookie("token", (entry as SuccessfullAuthResponse).token, {
         httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        path: "/",
       })
       .send();
   } else {

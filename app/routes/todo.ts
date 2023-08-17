@@ -30,7 +30,7 @@ router.put("/", (req: Request, res: Response) => {
     return res.send("Server error!");
   }
   const newId = uuidv4();
-  todos[newId] = todo;
+  todos[newId] = { id: newId, ...todo };
   storeData(token, todos);
   return res.json({ id: newId });
 });
