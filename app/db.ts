@@ -1,3 +1,4 @@
+import { AuthResponse } from "./auth/auth";
 const uuidv4 = require("uuid/v4");
 
 let userData: any = {};
@@ -7,30 +8,33 @@ export const isUserRegistered = (email: string) => {
   return userData.hasOwnProperty(email);
 };
 
-export const registerUser = (email: string, pass: string) => {
+export const registerUser = (email: string, password: string) => {
   const newAcessToken = uuidv4();
   userData[email] = {
-    pass: pass,
+    password: password,
     token: newAcessToken,
   };
   store[newAcessToken] = {};
 };
 
-export const getTokenForUser = (email: string, pass: string) => {
+export const getTokenForUser = (
+  email: string,
+  password: string
+): AuthResponse => {
   if (!isUserRegistered(email)) {
     return {
       success: false,
-      data: "Invalid email!",
+      error: "Invalid email! Registered?",
     };
-  } else if (userData[email] && userData[email].pass === pass) {
+  } else if (userData[email] && userData[email].password === password) {
     return {
       success: true,
-      data: userData[email].token,
+      token: userData[email].token,
     };
   } else {
     return {
       success: false,
-      data: "Invalid password!",
+      error: "Invalid password!",
     };
   }
 };

@@ -23,7 +23,7 @@ router.post("/", (req: Request, res: Response) => {
     res.status(400);
     return res.send("Email is already taken!");
   } else {
-    registerUser(credentials.email, credentials.pass);
+    registerUser(credentials.email, credentials.password);
     res.status(200);
     return res.send();
   }

@@ -19,9 +19,9 @@ export const extractCredentials = (token: string): Credentials | null => {
     return null;
   }
   const email = items[0];
-  const pass = items[1];
+  const password = items[1];
   if (!validator.validate(email)) {
     return null;
   }
-  return { email, pass };
+  return { email, password };
 };
