@@ -1,12 +1,10 @@
 import { tokenExists } from "./../db";
-import { getAuthHeader } from "../utils";
 
 export const authMiddleware = (req: any, res: any, next: any) => {
-  let token = getAuthHeader(req.headers);
-  token = token.replace("Bearer ", "");
+  const token = req.cookies.token;
   if (!token) {
     res.status(400);
-    res.send("Invalid Authorization header!");
+    res.send("Invalid Token!");
     return;
   }
 
@@ -15,7 +13,7 @@ export const authMiddleware = (req: any, res: any, next: any) => {
     return next();
   } else {
     res.status(401);
-    res.send("Not authorized!");
+    res.send("Not authorized! Registered?");
     return;
   }
 };

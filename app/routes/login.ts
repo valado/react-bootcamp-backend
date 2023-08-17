@@ -2,6 +2,7 @@ import { Router } from "express";
 import { Request, Response } from "express";
 import { getTokenForUser } from "../db";
 import { extractCredentials, getAuthHeader } from "./../utils";
+import { FailedAuthResponse, SuccessfullAuthResponse } from "../auth/auth";
 const router = Router();
 
 router.post("/", (req: Request, res: Response) => {
@@ -19,11 +20,19 @@ router.post("/", (req: Request, res: Response) => {
     return res.send("Invalid Authorization header!");
   }
   console.log(credentials);
-  const entry = getTokenForUser(credentials.email, credentials.pass);
+  const entry = getTokenForUser(credentials.email, credentials.password);
   if (entry.success) {
-    return res.status(200).send(entry.data);
+    return res
+      .status(200)
+      .cookie("token", (entry as SuccessfullAuthResponse).token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        path: "/",
+      })
+      .send();
   } else {
-    return res.status(401).send(entry.data);
+    return res.status(401).send({ error: (entry as FailedAuthResponse).error });
   }
 });
 

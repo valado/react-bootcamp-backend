@@ -1,4 +1,4 @@
 export interface Credentials {
   email: string;
-  pass: string;
+  password: string;
 }

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b2fa20ec-3590-4641-a51b-377f4100a0b0",
+		"_postman_id": "8abd1606-e217-4e0b-8567-cf40fd0c8c63",
 		"name": "React-Bootcamp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -38,8 +38,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"const token = responseBody;",
-							"pm.globals.set(\"TOKEN\", token);"
+							"const cookie = responseHeaders['Set-Cookie'];",
+							"const token  = cookie.replace('token=','').replace('; Path=/; HttpOnly','')",
+							"pm.globals.set(\"REACT_BOOTCAMP_TOKEN\", token);",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -67,38 +69,13 @@
 			"response": []
 		},
 		{
-			"name": "FetchData",
+			"name": "GetTodos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{TOKEN}}",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/data",
-					"host": [
-						"{{REACT_BOOTCAMP_ENDPOINT}}"
-					],
-					"path": [
-						"data"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "StoreData",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{TOKEN}}",
-						"type": "default"
-					},
 					{
 						"key": "Content-Type",
 						"value": "application/json",
@@ -110,12 +87,95 @@
 					"raw": "{\n    \"test\": 1\n}"
 				},
 				"url": {
-					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/data",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/todo",
 					"host": [
 						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
-						"data"
+						"todo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddTodo",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"todo\": {\n        \"example\": \"test\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/todo",
+					"host": [
+						"{{REACT_BOOTCAMP_ENDPOINT}}"
+					],
+					"path": [
+						"todo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTodo",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"todo\": {\n        \"example\": \"test2\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/todo/7d644913-a605-4a0b-946a-d2d17c1b6950",
+					"host": [
+						"{{REACT_BOOTCAMP_ENDPOINT}}"
+					],
+					"path": [
+						"todo",
+						"7d644913-a605-4a0b-946a-d2d17c1b6950"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTodo",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"todo\": {\n        \"example\": \"test\"\n    }\n}"
+				},
+				"url": {
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/todo/7d644913-a605-4a0b-946a-d2d17c1b6950",
+					"host": [
+						"{{REACT_BOOTCAMP_ENDPOINT}}"
+					],
+					"path": [
+						"todo",
+						"7d644913-a605-4a0b-946a-d2d17c1b6950"
 					]
 				}
 			},
