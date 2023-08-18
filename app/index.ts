@@ -15,6 +15,7 @@ import { clearDB } from "./db";
 const app = express();
 app.use(helmet());
 app.use(bodyParser.json({ extended: true }));
+app.use(cookieParser());
 
 // CORS
 const corsOptions = {
@@ -25,7 +26,6 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
-app.use(cookieParser());
 
 //public routes
 app.use("/register", registerRouter);
