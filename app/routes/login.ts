@@ -28,7 +28,6 @@ router.post("/", (req: Request, res: Response) => {
         httpOnly: true,
         secure: true,
         sameSite: "None",
-        path: "/",
       })
       .send();
   } else {
