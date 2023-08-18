@@ -38,8 +38,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"const cookie = responseHeaders['Set-Cookie'];",
-							"const token  = cookie.replace('token=','').replace('; Path=/; HttpOnly','')",
+							"const jsonData = pm.response.json();",
+							"const token = jsonData.token;",
 							"pm.globals.set(\"REACT_BOOTCAMP_TOKEN\", token);",
 							""
 						],
@@ -80,6 +80,11 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{REACT_BOOTCAMP_TOKEN}}",
+						"type": "default"
 					}
 				],
 				"body": {
@@ -106,6 +111,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{REACT_BOOTCAMP_TOKEN}}",
 						"type": "default"
 					}
 				],
@@ -134,6 +144,11 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{REACT_BOOTCAMP_TOKEN}}",
+						"type": "default"
 					}
 				],
 				"body": {
@@ -161,6 +176,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{REACT_BOOTCAMP_TOKEN}}",
 						"type": "default"
 					}
 				],
