@@ -11,6 +11,9 @@ export const getAuthHeader = (headers: any): string | null => {
   }
 };
 
+export const extractToken = (authHeader: string) =>
+  authHeader?.replace("Bearer ", "") || "";
+
 export const extractCredentials = (token: string): Credentials | null => {
   token = token.replace("Basic ", "");
   console.log(token);

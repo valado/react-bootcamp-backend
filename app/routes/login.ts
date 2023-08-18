@@ -24,12 +24,7 @@ router.post("/", (req: Request, res: Response) => {
   if (entry.success) {
     return res
       .status(200)
-      .cookie("token", (entry as SuccessfullAuthResponse).token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-      })
-      .send();
+      .json({ token: (entry as SuccessfullAuthResponse).token });
   } else {
     return res.status(401).send({ error: (entry as FailedAuthResponse).error });
   }

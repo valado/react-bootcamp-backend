@@ -18,7 +18,7 @@ app.use(bodyParser.json({ extended: true }));
 
 // CORS
 const corsOptions = {
-  origin: ["http://localhost:4200"],
+  origin: "*",
   preflightContinue: false,
   credentials: true,
   methods: ["OPTIONS", "GET", "PUT", "POST", "PATCH", "DELETE"],

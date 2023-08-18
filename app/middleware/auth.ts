@@ -1,7 +1,9 @@
+import { extractToken, getAuthHeader } from "../utils";
 import { tokenExists } from "./../db";
 
 export const authMiddleware = (req: any, res: any, next: any) => {
-  const token = req.cookies.token;
+  const authHeader = getAuthHeader(req.headers);
+  const token = extractToken(authHeader);
   if (!token) {
     res.status(400);
     res.send("Invalid Token!");
