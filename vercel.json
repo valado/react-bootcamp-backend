@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "regions": ["fra1"],
   "builds": [
     {
       "src": "./dist/main.js",
@@ -11,5 +12,7 @@
       "src": "/(.*)",
       "dest": "/dist/main.js"
     }
-  ]
+  ],
+  "buildCommand": "npm run build",
+  "installCommand": "npm ci"
 }
