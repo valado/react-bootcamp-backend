@@ -1,9 +1,9 @@
-import { AuthResponse } from "../auth/auth";
-const uuidv4 = require("uuid/v4");
-import { kv } from "@vercel/kv";
-import { DbAdapter, StoreOptions } from "./DbAdapter";
+import { AuthResponse } from '../auth/auth';
+const uuidv4 = require('uuid/v4');
+import { kv } from '@vercel/kv';
+import { DbAdapter, StoreOptions } from './DbAdapter';
 
-const TTL = 24 * 60 * 60; // 24 hours
+const TTL = 12 * 60 * 60; // 24 hours
 const redisOptions = {
   ex: TTL,
 };
@@ -31,11 +31,11 @@ const getTokenForUser = (
   email: string,
   password: string
 ): Promise<AuthResponse> =>
-  getCredentials4User(email).then((data: any) => {
+  getData(email).then((data: any) => {
     if (!data) {
       return {
         success: false,
-        error: "Invalid email! Registered?",
+        error: 'Invalid email! Registered?',
       };
     } else if (data.password === password) {
       return {
@@ -45,7 +45,7 @@ const getTokenForUser = (
     } else {
       return {
         success: false,
-        error: "Invalid password!",
+        error: 'Invalid password!',
       };
     }
   });
@@ -56,15 +56,18 @@ const isUserRegistered = (email: string) =>
   getData(email).then((data) => !!data);
 
 const getData = (token: string) => {
+  console.log('# getData');
   return new Promise((resolve) => {
     try {
       kv.get(token).then((data: any) => {
+        console.log(data);
         if (!data) {
           resolve(null);
         }
         resolve(JSON.parse(data));
       });
-    } catch (e) {
+    } catch (err) {
+      console.error(err);
       resolve(null);
     }
   });
@@ -73,19 +76,22 @@ const getData = (token: string) => {
 const storeData = (
   key: string,
   data: any,
-  options = {
+  options: StoreOptions = {
     overwrite: true,
   }
-): Promise<void> =>
-  kv
+): Promise<void> => {
+  console.log('# storeData');
+  return kv
     .set(
       key,
       JSON.stringify(data),
       options.overwrite ? redisOptions : redisOptionsNoOverwrite
     )
-    .then(() => Promise.resolve());
-
-const getCredentials4User = (email: string) => getData(email);
+    .then((res) => {
+      console.log(res);
+      return Promise.resolve();
+    });
+};
 
 export const kvDb: DbAdapter = {
   registerUser,
