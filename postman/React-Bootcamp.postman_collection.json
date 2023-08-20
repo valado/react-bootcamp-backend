@@ -69,7 +69,7 @@
 			"response": []
 		},
 		{
-			"name": "GetTodos",
+			"name": "GetNotes",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -92,19 +92,19 @@
 					"raw": "{\n    \"test\": 1\n}"
 				},
 				"url": {
-					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/todo",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes",
 					"host": [
 						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
-						"todo"
+						"notes"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "AddTodo",
+			"name": "AddNote",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -124,19 +124,19 @@
 					"raw": "{\n    \"todo\": {\n        \"example\": \"test\"\n    }\n}"
 				},
 				"url": {
-					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/todo",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes",
 					"host": [
 						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
-						"todo"
+						"notes"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "UpdateTodo",
+			"name": "UpdateNote",
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -156,12 +156,12 @@
 					"raw": "{\n    \"todo\": {\n        \"example\": \"test2\"\n    }\n}"
 				},
 				"url": {
-					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/todo/7d644913-a605-4a0b-946a-d2d17c1b6950",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes/7d644913-a605-4a0b-946a-d2d17c1b6950",
 					"host": [
 						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
-						"todo",
+						"notes",
 						"7d644913-a605-4a0b-946a-d2d17c1b6950"
 					]
 				}
@@ -169,7 +169,7 @@
 			"response": []
 		},
 		{
-			"name": "DeleteTodo",
+			"name": "DeleteNote",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -189,12 +189,12 @@
 					"raw": "{\n    \"todo\": {\n        \"example\": \"test\"\n    }\n}"
 				},
 				"url": {
-					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/todo/7d644913-a605-4a0b-946a-d2d17c1b6950",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes/7d644913-a605-4a0b-946a-d2d17c1b6950",
 					"host": [
 						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
-						"todo",
+						"notes",
 						"7d644913-a605-4a0b-946a-d2d17c1b6950"
 					]
 				}
