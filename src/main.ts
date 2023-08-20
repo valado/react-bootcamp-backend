@@ -1,9 +1,9 @@
 import { authMiddleware } from './middleware/auth';
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import helmet from 'helmet';
-const cookieParser = require('cookie-parser');
+import cookieParser from 'cookie-parser';
 
 import loginRouter from './routes/login';
 import registerRouter from './routes/register';
@@ -13,7 +13,7 @@ import notesRouter from './routes/notes';
 // Create an express app
 const app = express();
 app.use(helmet());
-app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 // CORS
