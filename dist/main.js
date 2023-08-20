@@ -384,7 +384,11 @@ router4.patch("/:id", async (req, res) => {
       res.status(500);
       return res.send("Server error!");
     }
-    notes[id] = note;
+    if (!notes[id]) {
+      res.status(404);
+      return res.send("Note not found!");
+    }
+    notes[id] = { ...notes[id], ...note };
     await db_default.storeData(token, notes);
     return res.send();
   } catch (err) {
