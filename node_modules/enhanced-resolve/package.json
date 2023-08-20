@@ -1,49 +1,69 @@
 {
   "name": "enhanced-resolve",
-  "version": "4.1.0",
+  "version": "5.15.0",
   "author": "Tobias Koppers @sokra",
   "description": "Offers a async require.resolve function. It's highly configurable.",
   "files": [
     "lib",
+    "types.d.ts",
     "LICENSE"
   ],
-  "dependencies": {
-    "graceful-fs": "^4.1.2",
-    "memory-fs": "^0.4.0",
-    "tapable": "^1.0.0"
+  "browser": {
+    "pnpapi": false,
+    "process": "./lib/util/process-browser.js"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/mit-license.php"
-    }
-  ],
+  "dependencies": {
+    "graceful-fs": "^4.2.4",
+    "tapable": "^2.2.0"
+  },
+  "license": "MIT",
   "devDependencies": {
-    "beautify-lint": "^1.0.3",
-    "codecov.io": "^0.1.6",
-    "coveralls": "^2.11.6",
-    "eslint": "^3.14.1",
-    "eslint-plugin-node": "^3.0.5",
-    "eslint-plugin-nodeca": "^1.0.3",
-    "istanbul": "^0.4.1",
-    "js-beautify": "^1.5.10",
-    "mocha": "^2.3.4",
-    "should": "^8.0.2"
+    "@types/graceful-fs": "^4.1.6",
+    "@types/jest": "^27.5.1",
+    "@types/node": "^14.11.1",
+    "cspell": "4.2.8",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jsdoc": "^30.5.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^6.0.0",
+    "jest": "^27.5.1",
+    "lint-staged": "^10.4.0",
+    "memfs": "^3.2.0",
+    "prettier": "^2.1.2",
+    "tooling": "webpack/tooling#v1.14.0",
+    "typescript": "^5.0.4"
   },
   "engines": {
-    "node": ">=6.9.0"
+    "node": ">=10.13.0"
   },
-  "main": "lib/node.js",
+  "main": "lib/index.js",
+  "types": "types.d.ts",
   "homepage": "http://github.com/webpack/enhanced-resolve",
   "scripts": {
-    "beautify-lint": "beautify-lint lib/**.js test/*.js",
-    "beautify": "beautify-rewrite lib/**.js test/*.js",
-    "lint": "eslint lib test",
-    "pretest": "npm run lint && npm run beautify-lint",
-    "test": "mocha --full-trace --check-leaks",
-    "precover": "npm run lint && npm run beautify-lint",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha",
-    "travis": "npm run cover -- --report lcovonly"
+    "lint": "yarn run code-lint && yarn run type-lint && yarn typings-test && yarn run special-lint && yarn run spelling",
+    "fix": "yarn run code-lint-fix && yarn run special-lint-fix",
+    "code-lint": "eslint --cache lib test",
+    "code-lint-fix": "eslint --cache lib test --fix",
+    "type-lint": "tsc",
+    "typings-test": "tsc -p tsconfig.types.test.json",
+    "type-report": "rimraf coverage && yarn cover:types && yarn cover:report && open-cli coverage/lcov-report/index.html",
+    "special-lint": "node node_modules/tooling/lockfile-lint && node node_modules/tooling/inherit-types && node node_modules/tooling/format-file-header && node node_modules/tooling/generate-types",
+    "special-lint-fix": "node node_modules/tooling/inherit-types --write && node node_modules/tooling/format-file-header --write && node node_modules/tooling/generate-types --write",
+    "pretty": "prettier --loglevel warn --write \"lib/**/*.{js,json}\" \"test/*.js\"",
+    "pretest": "yarn lint",
+    "spelling": "cspell \"**\"",
+    "test:only": "jest",
+    "test:watch": "yarn test:only -- --watch",
+    "test:coverage": "yarn test:only -- --collectCoverageFrom=\"lib/**/*.js\" --coverage",
+    "test": "yarn test:coverage",
+    "precover": "yarn lint",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*": "cspell --no-must-find-files",
+    "*.js": "eslint --cache"
   },
   "repository": {
     "type": "git",
