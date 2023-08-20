@@ -13,6 +13,5 @@
       "dest": "/dist/main.js"
     }
   ],
-  "buildCommand": "cd .. && npm run build",
   "installCommand": "npm i"
 }
