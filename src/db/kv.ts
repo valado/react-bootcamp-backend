@@ -3,7 +3,7 @@ import { uuid } from 'uuidv4';
 import { kv } from '@vercel/kv';
 import { DbAdapter, StoreOptions } from './DbAdapter';
 
-const TTL = 12 * 60 * 60; // 24 hours
+const TTL = 12 * 60 * 60; // 12 hours
 const redisOptions = {
   ex: TTL,
 };
