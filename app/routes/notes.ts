@@ -7,62 +7,62 @@ const router = Router();
 
 router.get("/", (req: Request, res: Response) => {
   const token = (req as CustomRequest).token;
-  const todos = getData(token);
-  if (!todos) {
+  const notes = getData(token);
+  if (!notes) {
     res.status(500);
     return res.send("Server error!");
   }
   return res.json({
-    todos,
+    notes,
   });
 });
 
 router.put("/", (req: Request, res: Response) => {
   const token = (req as CustomRequest).token;
-  const todo = req.body.todo;
-  if (!todo) {
+  const note = req.body.note;
+  if (!note) {
     res.status(400);
     return res.send("Bad Request!");
   }
-  const todos = getData(token);
-  if (!todos) {
+  const notes = getData(token);
+  if (!notes) {
     res.status(500);
     return res.send("Server error!");
   }
   const newId = uuidv4();
-  todos[newId] = { id: newId, ...todo };
-  storeData(token, todos);
+  notes[newId] = { id: newId, ...note };
+  storeData(token, notes);
   return res.json({ id: newId });
 });
 
 router.patch("/:id", (req: Request, res: Response) => {
   const token = (req as CustomRequest).token;
-  const todo = req.body.todo;
+  const note = req.body.note;
   const id = req.params.id;
-  if (!todo) {
+  if (!note) {
     res.status(400);
     return res.send("Bad Request!");
   }
-  const todos = getData(token);
-  if (!todos) {
+  const notes = getData(token);
+  if (!notes) {
     res.status(500);
     return res.send("Server error!");
   }
-  todos[id] = todo;
-  storeData(token, todos);
+  notes[id] = note;
+  storeData(token, notes);
   return res.send();
 });
 
 router.delete("/:id", (req: Request, res: Response) => {
   const token = (req as CustomRequest).token;
   const id = req.params.id;
-  const todos = getData(token);
-  if (!todos) {
+  const notes = getData(token);
+  if (!notes) {
     res.status(500);
     return res.send("Server error!");
   }
-  delete todos[id];
-  storeData(token, todos);
+  delete notes[id];
+  storeData(token, notes);
   return res.send();
 });
 

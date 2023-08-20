@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 import loginRouter from "./routes/login";
 import registerRouter from "./routes/register";
 import dataRouter from "./routes/data";
-import todoRouter from "./routes/todo";
+import notesRouter from "./routes/notes";
 import { clearDB } from "./db";
 
 // Create an express app
@@ -38,7 +38,7 @@ app.delete("/db", (req: any, res: any) => {
 // protected routes
 app.use(authMiddleware);
 app.use("/data", dataRouter);
-app.use("/todo", todoRouter);
+app.use("/notes", notesRouter);
 
 app.set("port", process.env.PORT || 9000);
 //Start Server
