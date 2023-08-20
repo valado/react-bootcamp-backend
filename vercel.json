@@ -13,6 +13,6 @@
       "dest": "/dist/main.js"
     }
   ],
-  "buildCommand": "npm run build",
+  "buildCommand": "npx nx build",
   "installCommand": "npm i"
 }
