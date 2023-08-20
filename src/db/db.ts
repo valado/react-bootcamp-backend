@@ -1,12 +1,12 @@
-import { AuthResponse } from "../auth/auth";
-import { DbAdapter } from "./DbAdapter";
-const uuidv4 = require("uuid/v4");
+import { AuthResponse } from '../auth/auth';
+import { DbAdapter } from './DbAdapter';
+import { uuid } from 'uuidv4';
 
-let userData: any = {};
-let store: any = {};
+const userData: any = {};
+const store: any = {};
 
 const registerUser = (email: string, password: string) => {
-  const newAcessToken = uuidv4();
+  const newAcessToken = uuid();
   userData[email] = {
     password: password,
     token: newAcessToken,
@@ -23,7 +23,7 @@ const getTokenForUser = (
     if (!isUserRegistered(email)) {
       resolve({
         success: false,
-        error: "Invalid email! Registered?",
+        error: 'Invalid email! Registered?',
       });
     } else if (userData[email] && userData[email].password === password) {
       resolve({
@@ -33,14 +33,14 @@ const getTokenForUser = (
     } else {
       resolve({
         success: false,
-        error: "Invalid password!",
+        error: 'Invalid password!',
       });
     }
   });
 };
 
 const tokenExists = (token: string) => {
-  return Promise.resolve(store.hasOwnProperty(token));
+  return Promise.resolve(!!store[token]);
 };
 
 const getData = (token: string) => {
@@ -58,7 +58,7 @@ const storeData = (token: string, data: any) => {
 };
 
 const isUserRegistered = (email: string) => {
-  return userData.hasOwnProperty(email);
+  return Promise.resolve(!!userData[email]);
 };
 
 export const mockDb: DbAdapter = {

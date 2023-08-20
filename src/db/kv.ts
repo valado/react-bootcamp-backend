@@ -1,5 +1,5 @@
 import { AuthResponse } from '../auth/auth';
-const uuidv4 = require('uuid/v4');
+import { uuid } from 'uuidv4';
 import { kv } from '@vercel/kv';
 import { DbAdapter, StoreOptions } from './DbAdapter';
 
@@ -13,7 +13,7 @@ const redisOptionsNoOverwrite = {
 };
 
 const registerUser = (email: string, password: string) => {
-  const newAcessToken = uuidv4();
+  const newAcessToken = uuid();
   return Promise.all([
     storeData(
       email,
