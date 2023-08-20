@@ -121,7 +121,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"todo\": {\n        \"example\": \"test\"\n    }\n}"
+					"raw": "{\n    \"note\": {\n        \"example\": \"test\"\n    }\n}"
 				},
 				"url": {
 					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes",
@@ -153,16 +153,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"todo\": {\n        \"example\": \"test2\"\n    }\n}"
+					"raw": "{\n    \"note\": {\n        \"example\": \"test4\"\n    }\n}"
 				},
 				"url": {
-					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes/7d644913-a605-4a0b-946a-d2d17c1b6950",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes/a14d4434-674c-4ebc-a7d5-2847de8b556d",
 					"host": [
 						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
 						"notes",
-						"7d644913-a605-4a0b-946a-d2d17c1b6950"
+						"a14d4434-674c-4ebc-a7d5-2847de8b556d"
 					]
 				}
 			},
@@ -189,13 +189,13 @@
 					"raw": "{\n    \"todo\": {\n        \"example\": \"test\"\n    }\n}"
 				},
 				"url": {
-					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes/7d644913-a605-4a0b-946a-d2d17c1b6950",
+					"raw": "{{REACT_BOOTCAMP_ENDPOINT}}/notes/a14d4434-674c-4ebc-a7d5-2847de8b556d",
 					"host": [
 						"{{REACT_BOOTCAMP_ENDPOINT}}"
 					],
 					"path": [
 						"notes",
-						"7d644913-a605-4a0b-946a-d2d17c1b6950"
+						"a14d4434-674c-4ebc-a7d5-2847de8b556d"
 					]
 				}
 			},
