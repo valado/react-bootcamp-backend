@@ -1,7 +1,7 @@
 {
   "name": "e2e",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["mvoe"],
+  "implicitDependencies": ["bootcamp"],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",

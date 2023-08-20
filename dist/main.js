@@ -182,7 +182,7 @@ var mockDb = {
 };
 
 // src/db/index.ts
-var production = true;
+var production = process.env.NODE_ENV === "production";
 var db = production ? kvDb : mockDb;
 var db_default = db;
 

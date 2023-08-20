@@ -40,14 +40,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "mvoe:build"
+        "buildTarget": "bootcamp:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "mvoe:build:development"
+          "buildTarget": "bootcamp:build:development"
         },
         "production": {
-          "buildTarget": "mvoe:build:production"
+          "buildTarget": "bootcamp:build:production"
         }
       }
     },
