@@ -81,6 +81,7 @@ const storeData = (
   }
 ): Promise<void> => {
   console.log('# storeData');
+  console.log(data);
   return kv
     .set(
       key,
