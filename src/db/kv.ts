@@ -64,7 +64,7 @@ const getData = (token: string) => {
         if (!data) {
           resolve(null);
         }
-        resolve(JSON.parse(data));
+        resolve(data);
       });
     } catch (err) {
       console.error(err);
