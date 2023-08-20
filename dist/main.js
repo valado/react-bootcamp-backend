@@ -48,7 +48,7 @@ var extractCredentials = (token) => {
 // src/db/kv.ts
 var import_kv = require("@vercel/kv");
 var uuidv4 = require("uuid/v4");
-var TTL = 24 * 60 * 60;
+var TTL = 12 * 60 * 60;
 var redisOptions = {
   ex: TTL
 };
@@ -70,7 +70,7 @@ var registerUser = (email, password) => {
     storeData(newAcessToken, {}, { overwrite: false })
   ]).then(() => Promise.resolve());
 };
-var getTokenForUser = (email, password) => getCredentials4User(email).then((data) => {
+var getTokenForUser = (email, password) => getData(email).then((data) => {
   if (!data) {
     return {
       success: false,
@@ -91,27 +91,35 @@ var getTokenForUser = (email, password) => getCredentials4User(email).then((data
 var tokenExists = (token) => getData(token).then((data) => !!data);
 var isUserRegistered = (email) => getData(email).then((data) => !!data);
 var getData = (token) => {
+  console.log("# getData");
   return new Promise((resolve) => {
     try {
       import_kv.kv.get(token).then((data) => {
+        console.log(data);
         if (!data) {
           resolve(null);
         }
         resolve(JSON.parse(data));
       });
-    } catch (e) {
+    } catch (err) {
+      console.error(err);
       resolve(null);
     }
   });
 };
 var storeData = (key, data, options = {
   overwrite: true
-}) => import_kv.kv.set(
-  key,
-  JSON.stringify(data),
-  options.overwrite ? redisOptions : redisOptionsNoOverwrite
-).then(() => Promise.resolve());
-var getCredentials4User = (email) => getData(email);
+}) => {
+  console.log("# storeData");
+  return import_kv.kv.set(
+    key,
+    JSON.stringify(data),
+    options.overwrite ? redisOptions : redisOptionsNoOverwrite
+  ).then((res) => {
+    console.log(res);
+    return Promise.resolve();
+  });
+};
 var kvDb = {
   registerUser,
   getTokenForUser,
@@ -426,4 +434,3 @@ app.set("port", process.env.PORT || 9e3);
 app.listen(app.get("port"), function() {
   console.log("Node app is running on port", app.get("port"));
 });
-//# sourceMappingURL=main.js.map
