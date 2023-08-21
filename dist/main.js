@@ -48,6 +48,13 @@ var extractCredentials = (token) => {
 // src/db/kv.ts
 var import_uuidv4 = require("uuidv4");
 var import_kv = require("@vercel/kv");
+
+// src/db/utils.ts
+var convert2Key = (prefix, token) => `${prefix}-${token}`;
+var convert2NotesKey = (token) => convert2Key("notes" /* NOTES */, token);
+var convert2IssuesKey = (token) => convert2Key("issues" /* ISSUES */, token);
+
+// src/db/kv.ts
 var TTL = 12 * 60 * 60;
 var redisOptions = {
   ex: TTL
@@ -67,7 +74,9 @@ var registerUser = (email, password) => {
       },
       { overwrite: false }
     ),
-    storeData(newAcessToken, {}, { overwrite: false })
+    storeData(newAcessToken, {}, { overwrite: false }),
+    storeData(convert2NotesKey(newAcessToken), {}, { overwrite: false }),
+    storeData(convert2IssuesKey(newAcessToken), {}, { overwrite: false })
   ]).then(() => Promise.resolve());
 };
 var getTokenForUser = (email, password) => getData(email).then((data) => {
@@ -141,6 +150,9 @@ var registerUser2 = (email, password) => {
     token: newAcessToken
   };
   store[newAcessToken] = {};
+  store[newAcessToken] = {};
+  store[convert2NotesKey(newAcessToken)] = {};
+  store[convert2IssuesKey(newAcessToken)] = {};
   return Promise.resolve();
 };
 var getTokenForUser2 = (email, password) => {
@@ -222,7 +234,7 @@ var authMiddleware = async (req, res, next) => {
 };
 
 // src/main.ts
-var import_express5 = __toESM(require("express"));
+var import_express6 = __toESM(require("express"));
 var import_body_parser = __toESM(require("body-parser"));
 var import_cors = __toESM(require("cors"));
 var import_helmet = __toESM(require("helmet"));
@@ -333,7 +345,7 @@ var router4 = (0, import_express4.Router)();
 router4.get("/", async (req, res) => {
   try {
     const token = req.token;
-    const notes = await db_default.getData(token);
+    const notes = await db_default.getData(convert2NotesKey(token));
     if (!notes) {
       res.status(500);
       return res.send("Server error!");
@@ -355,14 +367,14 @@ router4.put("/", async (req, res) => {
       res.status(400);
       return res.send("Bad Request!");
     }
-    const notes = await db_default.getData(token);
+    const notes = await db_default.getData(convert2NotesKey(token));
     if (!notes) {
       res.status(500);
       return res.send("Server error!");
     }
     const newId = (0, import_uuidv43.uuid)();
     notes[newId] = { id: newId, ...note };
-    await db_default.storeData(token, notes);
+    await db_default.storeData(convert2NotesKey(token), notes);
     return res.json({ id: newId });
   } catch (err) {
     console.error(err);
@@ -379,7 +391,7 @@ router4.patch("/:id", async (req, res) => {
       res.status(400);
       return res.send("Bad Request!");
     }
-    const notes = await db_default.getData(token);
+    const notes = await db_default.getData(convert2NotesKey(token));
     if (!notes) {
       res.status(500);
       return res.send("Server error!");
@@ -389,7 +401,7 @@ router4.patch("/:id", async (req, res) => {
       return res.send("Note not found!");
     }
     notes[id] = { ...notes[id], ...note };
-    await db_default.storeData(token, notes);
+    await db_default.storeData(convert2NotesKey(token), notes);
     return res.send();
   } catch (err) {
     console.error(err);
@@ -401,13 +413,13 @@ router4.delete("/:id", async (req, res) => {
   try {
     const token = req.token;
     const id = req.params.id;
-    const notes = await db_default.getData(token);
+    const notes = await db_default.getData(convert2NotesKey(token));
     if (!notes) {
       res.status(500);
       return res.send("Server error!");
     }
     delete notes[id];
-    await db_default.storeData(token, notes);
+    await db_default.storeData(convert2NotesKey(token), notes);
     return res.send();
   } catch (err) {
     console.error(err);
@@ -417,8 +429,40 @@ router4.delete("/:id", async (req, res) => {
 });
 var notes_default = router4;
 
+// src/routes/issues.ts
+var import_express5 = require("express");
+var router5 = (0, import_express5.Router)();
+router5.post("/", async (req, res) => {
+  try {
+    const token = req.token;
+    await db_default.storeData(convert2IssuesKey(token), req.body);
+    res.status(200);
+    return res.send();
+  } catch (err) {
+    console.error(err);
+    res.status(500);
+    return res.send("Server error!");
+  }
+});
+router5.get("/", async (req, res) => {
+  try {
+    const token = req.token;
+    const data = await db_default.getData(convert2IssuesKey(token));
+    if (!data) {
+      res.status(500);
+      return res.send("Server error!");
+    }
+    return res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500);
+    return res.send("Server error!");
+  }
+});
+var issues_default = router5;
+
 // src/main.ts
-var app = (0, import_express5.default)();
+var app = (0, import_express6.default)();
 app.use((0, import_helmet.default)());
 app.use(import_body_parser.default.json());
 app.use((0, import_cookie_parser.default)());
@@ -435,7 +479,9 @@ app.use("/login", login_default);
 app.use(authMiddleware);
 app.use("/data", data_default);
 app.use("/notes", notes_default);
+app.use("/issues", issues_default);
 app.set("port", process.env.PORT || 9e3);
 app.listen(app.get("port"), function() {
   console.log("Node app is running on port", app.get("port"));
 });
+//# sourceMappingURL=main.js.map
