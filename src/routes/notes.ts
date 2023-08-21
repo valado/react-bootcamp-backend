@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { Request, Response } from 'express';
 import db from '../db';
 import { CustomRequest } from '../model/CustomRequest';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { convert2NotesKey } from 'src/db/utils';
 
 const router = Router();

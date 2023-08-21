@@ -1,6 +1,6 @@
 import { AuthResponse } from '../auth/auth';
 import { DbAdapter } from './DbAdapter';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { convert2NotesKey, convert2IssuesKey } from './utils';
 
 const userData: any = {};

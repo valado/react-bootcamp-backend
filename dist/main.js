@@ -46,7 +46,7 @@ var extractCredentials = (token) => {
 };
 
 // src/db/kv.ts
-var import_uuidv4 = require("uuidv4");
+var import_uuid = require("uuid");
 var import_kv = require("@vercel/kv");
 
 // src/db/utils.ts
@@ -64,7 +64,7 @@ var redisOptionsNoOverwrite = {
   nx: true
 };
 var registerUser = (email, password) => {
-  const newAcessToken = (0, import_uuidv4.uuid)();
+  const newAcessToken = (0, import_uuid.v4)();
   return Promise.all([
     storeData(
       email,
@@ -140,11 +140,11 @@ var kvDb = {
 };
 
 // src/db/db.ts
-var import_uuidv42 = require("uuidv4");
+var import_uuid2 = require("uuid");
 var userData = {};
 var store = {};
 var registerUser2 = (email, password) => {
-  const newAcessToken = (0, import_uuidv42.uuid)();
+  const newAcessToken = (0, import_uuid2.v4)();
   userData[email] = {
     password,
     token: newAcessToken
@@ -340,7 +340,7 @@ var data_default = router3;
 
 // src/routes/notes.ts
 var import_express4 = require("express");
-var import_uuidv43 = require("uuidv4");
+var import_uuid3 = require("uuid");
 var router4 = (0, import_express4.Router)();
 router4.get("/", async (req, res) => {
   try {
@@ -372,7 +372,7 @@ router4.put("/", async (req, res) => {
       res.status(500);
       return res.send("Server error!");
     }
-    const newId = (0, import_uuidv43.uuid)();
+    const newId = (0, import_uuid3.v4)();
     notes[newId] = { id: newId, ...note };
     await db_default.storeData(convert2NotesKey(token), notes);
     return res.json({ id: newId });

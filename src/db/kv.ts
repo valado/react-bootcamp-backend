@@ -1,5 +1,5 @@
 import { AuthResponse } from '../auth/auth';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import { kv } from '@vercel/kv';
 import { DbAdapter, StoreOptions } from './DbAdapter';
 import { convert2NotesKey, convert2IssuesKey } from './utils';
