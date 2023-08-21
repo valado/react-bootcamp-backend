@@ -9,6 +9,7 @@ import loginRouter from './routes/login';
 import registerRouter from './routes/register';
 import dataRouter from './routes/data';
 import notesRouter from './routes/notes';
+import issuesRouter from './routes/issues';
 
 // Create an express app
 const app = express();
@@ -34,6 +35,7 @@ app.use('/login', loginRouter);
 app.use(authMiddleware);
 app.use('/data', dataRouter);
 app.use('/notes', notesRouter);
+app.use('/issues', issuesRouter);
 
 app.set('port', process.env.PORT || 9000);
 //Start Server

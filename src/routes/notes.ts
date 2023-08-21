@@ -3,13 +3,14 @@ import { Request, Response } from 'express';
 import db from '../db';
 import { CustomRequest } from '../model/CustomRequest';
 import { uuid } from 'uuidv4';
+import { convert2NotesKey } from 'src/db/utils';
 
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
   try {
     const token = (req as CustomRequest).token;
-    const notes = await db.getData(token);
+    const notes = await db.getData(convert2NotesKey(token));
 
     if (!notes) {
       res.status(500);
@@ -34,14 +35,14 @@ router.put('/', async (req: Request, res: Response) => {
       return res.send('Bad Request!');
     }
 
-    const notes = await db.getData(token);
+    const notes = await db.getData(convert2NotesKey(token));
     if (!notes) {
       res.status(500);
       return res.send('Server error!');
     }
     const newId = uuid();
     notes[newId] = { id: newId, ...note };
-    await db.storeData(token, notes);
+    await db.storeData(convert2NotesKey(token), notes);
     return res.json({ id: newId });
   } catch (err) {
     console.error(err);
@@ -59,7 +60,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
       res.status(400);
       return res.send('Bad Request!');
     }
-    const notes = await db.getData(token);
+    const notes = await db.getData(convert2NotesKey(token));
     if (!notes) {
       res.status(500);
       return res.send('Server error!');
@@ -69,7 +70,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
       return res.send('Note not found!');
     }
     notes[id] = { ...notes[id], ...note };
-    await db.storeData(token, notes);
+    await db.storeData(convert2NotesKey(token), notes);
     return res.send();
   } catch (err) {
     console.error(err);
@@ -82,13 +83,13 @@ router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const token = (req as CustomRequest).token;
     const id = req.params.id;
-    const notes = await db.getData(token);
+    const notes = await db.getData(convert2NotesKey(token));
     if (!notes) {
       res.status(500);
       return res.send('Server error!');
     }
     delete notes[id];
-    await db.storeData(token, notes);
+    await db.storeData(convert2NotesKey(token), notes);
     return res.send();
   } catch (err) {
     console.error(err);

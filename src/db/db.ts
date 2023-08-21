@@ -1,6 +1,7 @@
 import { AuthResponse } from '../auth/auth';
 import { DbAdapter } from './DbAdapter';
 import { uuid } from 'uuidv4';
+import { convert2NotesKey, convert2IssuesKey } from './utils';
 
 const userData: any = {};
 const store: any = {};
@@ -12,6 +13,10 @@ const registerUser = (email: string, password: string) => {
     token: newAcessToken,
   };
   store[newAcessToken] = {};
+  store[newAcessToken] = {};
+  store[convert2NotesKey(newAcessToken)] = {};
+  store[convert2IssuesKey(newAcessToken)] = {};
+
   return Promise.resolve();
 };
 

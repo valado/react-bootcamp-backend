@@ -2,6 +2,7 @@ import { AuthResponse } from '../auth/auth';
 import { uuid } from 'uuidv4';
 import { kv } from '@vercel/kv';
 import { DbAdapter, StoreOptions } from './DbAdapter';
+import { convert2NotesKey, convert2IssuesKey } from './utils';
 
 const TTL = 12 * 60 * 60; // 12 hours
 const redisOptions = {
@@ -24,6 +25,8 @@ const registerUser = (email: string, password: string) => {
       { overwrite: false }
     ),
     storeData(newAcessToken, {}, { overwrite: false }),
+    storeData(convert2NotesKey(newAcessToken), {}, { overwrite: false }),
+    storeData(convert2IssuesKey(newAcessToken), {}, { overwrite: false }),
   ]).then(() => Promise.resolve());
 };
 
