@@ -42,3 +42,9 @@ app.set('port', process.env.PORT || 9000);
 app.listen(app.get('port'), function () {
   console.log('Node app is running on port', app.get('port'));
 });
+
+process.on('SIGINT', function () {
+  console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
+  // some other closing procedures go here
+  process.exit();
+});
